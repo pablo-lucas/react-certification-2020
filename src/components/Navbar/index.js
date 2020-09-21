@@ -1,1 +1,1 @@
-export { default } from './Search.component';
+export { default } from './Navbar.component';

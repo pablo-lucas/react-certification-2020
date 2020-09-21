@@ -6,6 +6,7 @@ import HomePage from '../../pages/Home';
 import LoginPage from '../../pages/Login';
 import NotFound from '../../pages/NotFound';
 import SecretPage from '../../pages/Secret';
+import VideoPage from '../../pages/Video';
 import Private from '../Private';
 import Layout from '../Layout';
 import { random } from '../../utils/fns';
@@ -13,7 +14,8 @@ import Navbar from '../Navbar';
 import youtube from '../../apis/youtube';
 
 function App() {
-  const [videos, setVideos] = useState('');
+  const [videos, setVideos] = useState([]);
+  const [selectedVideo, setSelectedVideo] = useState(null);
 
   const search = async (term) => {
     const response = await youtube.get('/search', {
@@ -51,7 +53,7 @@ function App() {
           <Layout>
             <Switch>
               <Route exact path="/">
-                <HomePage videos={videos} />
+                <HomePage videos={videos} setSelectedVideo={setSelectedVideo} />
               </Route>
               <Route exact path="/login">
                 <LoginPage />
@@ -59,6 +61,13 @@ function App() {
               <Private exact path="/secret">
                 <SecretPage />
               </Private>
+              <Route path="/watch/:id">
+                <VideoPage
+                  selectedVideo={selectedVideo}
+                  videos={videos}
+                  setSelectedVideo={setSelectedVideo}
+                />
+              </Route>
               <Route path="*">
                 <NotFound />
               </Route>

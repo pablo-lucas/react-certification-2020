@@ -1,12 +1,18 @@
 import React from 'react';
 import { Card as SemanticCard, Image } from 'semantic-ui-react';
 
-const Card = ({ title, thumbnail }) => {
+const Card = ({ video, onVideoSelect }) => {
   return (
-    <SemanticCard>
-      <Image src={thumbnail} wrapped ui={false} />
+    <SemanticCard
+      as="div"
+      style={{ cursor: 'pointer' }}
+      onClick={() => onVideoSelect(video)}
+    >
+      <Image src={video.snippet.thumbnails.medium.url} wrapped ui={false} />
       <SemanticCard.Content>
-        <SemanticCard.Header>{title}</SemanticCard.Header>
+        <SemanticCard.Header>
+          <h4>{video.snippet.title}</h4>
+        </SemanticCard.Header>
         <SemanticCard.Meta>
           <span className="date">Joined in 2015</span>
         </SemanticCard.Meta>
