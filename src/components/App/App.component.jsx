@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import AuthProvider from '../../providers/Auth';
@@ -7,12 +7,24 @@ import LoginPage from '../../pages/Login';
 import NotFound from '../../pages/NotFound';
 import SecretPage from '../../pages/Secret';
 import Private from '../Private';
-import Fortune from '../Fortune';
 import Layout from '../Layout';
 import { random } from '../../utils/fns';
 import Navbar from '../Navbar';
+import youtube from '../../apis/youtube';
 
 function App() {
+  const [videos, setVideos] = useState('');
+
+  const search = async (term) => {
+    const response = await youtube.get('/search', {
+      params: {
+        q: term,
+      },
+    });
+
+    setVideos(response.data.items);
+  };
+
   useLayoutEffect(() => {
     const { body } = document;
 
@@ -34,12 +46,12 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Navbar />
+        <Navbar onFormSubmit={search} />
         <AuthProvider>
           <Layout>
             <Switch>
               <Route exact path="/">
-                <HomePage />
+                <HomePage videos={videos} />
               </Route>
               <Route exact path="/login">
                 <LoginPage />
@@ -51,7 +63,6 @@ function App() {
                 <NotFound />
               </Route>
             </Switch>
-            <Fortune />
           </Layout>
         </AuthProvider>
       </BrowserRouter>

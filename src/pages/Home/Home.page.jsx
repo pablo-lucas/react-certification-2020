@@ -1,10 +1,12 @@
 import React, { useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { Grid } from 'semantic-ui-react';
+import Card from '../../components/Card';
 
 import { useAuth } from '../../providers/Auth';
 import './Home.styles.css';
 
-function HomePage() {
+function HomePage({ videos }) {
   const history = useHistory();
   const sectionRef = useRef(null);
   const { authenticated, logout } = useAuth();
@@ -15,9 +17,28 @@ function HomePage() {
     history.push('/');
   }
 
+  const renderedVideos = () => {
+    if (videos) {
+      return (
+        <Grid doubling columns={4}>
+          {videos.map((video) => {
+            return (
+              <Grid.Column key={video.snippet.title} width={4} stretched>
+                <Card
+                  title={video.snippet.title}
+                  thumbnail={video.snippet.thumbnails.medium.url}
+                />
+              </Grid.Column>
+            );
+          })}
+        </Grid>
+      );
+    }
+  };
+
   return (
-    <section className="homepage" ref={sectionRef}>
-      <h1>Hello stranger!</h1>
+    <section className="" ref={sectionRef}>
+      {renderedVideos()}
       {authenticated ? (
         <>
           <h2>Good to have you back</h2>
