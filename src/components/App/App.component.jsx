@@ -11,9 +11,11 @@ import Private from '../Private';
 import Layout from '../Layout';
 import { random } from '../../utils/fns';
 import Navbar from '../Navbar';
+import Sidebar from '../Sidebar';
 import youtube from '../../apis/youtube';
 
 function App() {
+  const [visible, setVisible] = useState(false);
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
 
@@ -25,6 +27,7 @@ function App() {
     });
 
     setVideos(response.data.items);
+    // setVideos([]);
   };
 
   useLayoutEffect(() => {
@@ -45,34 +48,40 @@ function App() {
     };
   }, []);
 
+  const onShowSidebar = () => {
+    setVisible(!visible);
+  };
+
   return (
     <>
       <BrowserRouter>
-        <Navbar onFormSubmit={search} />
+        <Navbar onFormSubmit={search} onShowSidebar={onShowSidebar} />
         <AuthProvider>
-          <Layout>
-            <Switch>
-              <Route exact path="/">
-                <HomePage videos={videos} setSelectedVideo={setSelectedVideo} />
-              </Route>
-              <Route exact path="/login">
-                <LoginPage />
-              </Route>
-              <Private exact path="/secret">
-                <SecretPage />
-              </Private>
-              <Route path="/watch/:id">
-                <VideoPage
-                  selectedVideo={selectedVideo}
-                  videos={videos}
-                  setSelectedVideo={setSelectedVideo}
-                />
-              </Route>
-              <Route path="*">
-                <NotFound />
-              </Route>
-            </Switch>
-          </Layout>
+          <Sidebar visible={visible} setVisible={setVisible}>
+            <Layout>
+              <Switch>
+                <Route exact path="/">
+                  <HomePage videos={videos} setSelectedVideo={setSelectedVideo} />
+                </Route>
+                <Route exact path="/login">
+                  <LoginPage />
+                </Route>
+                <Private exact path="/secret">
+                  <SecretPage />
+                </Private>
+                <Route path="/watch/:id">
+                  <VideoPage
+                    selectedVideo={selectedVideo}
+                    videos={videos}
+                    setSelectedVideo={setSelectedVideo}
+                  />
+                </Route>
+                <Route path="*">
+                  <NotFound />
+                </Route>
+              </Switch>
+            </Layout>
+          </Sidebar>
         </AuthProvider>
       </BrowserRouter>
     </>

@@ -1,24 +1,34 @@
+import './Navbar.styles.css';
 import React from 'react';
-import { Icon, Menu } from 'semantic-ui-react';
+import { Button, Dropdown, Icon, Menu } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import Search from '../Search/Search.component';
 
-const Navbar = ({ onFormSubmit }) => {
+const Navbar = ({ onFormSubmit, onShowSidebar }) => {
   return (
-    <div>
+    <div style={{ position: 'relative' }}>
       <Menu attached="top" secondary>
         <Menu.Item name="sidebar">
-          <Icon name="bars" color="black" />
+          <Button basic icon onClick={() => onShowSidebar()}>
+            <Icon name="bars" />
+          </Button>
         </Menu.Item>
         <Menu.Item name="search">
           <Search onFormSubmit={onFormSubmit} />
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item name="user">
-            <Icon name="user" />
-            <span>Username</span>
+            <Dropdown icon="user">
+              <Dropdown.Menu>
+                <Link to="/login">
+                  <Dropdown.Item text="Sign in" />
+                </Link>
+              </Dropdown.Menu>
+            </Dropdown>
           </Menu.Item>
         </Menu.Menu>
       </Menu>
+      <div className="animated-border"></div>
     </div>
   );
 };

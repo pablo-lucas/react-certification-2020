@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { Form, Input } from 'semantic-ui-react';
 
 const Search = ({ onFormSubmit }) => {
+  const history = useHistory();
   const [term, setTerm] = useState('wizeline');
 
   useEffect(() => {
@@ -15,6 +17,7 @@ const Search = ({ onFormSubmit }) => {
   const onSubmit = (event) => {
     event.preventDefault();
     onFormSubmit(term);
+    history.push('/');
   };
 
   return (
