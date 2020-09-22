@@ -28,7 +28,7 @@ const Navbar = ({ onFormSubmit, onShowSidebar }) => {
           </Menu.Item>
         </Menu.Menu>
       </Menu>
-      <div className="animated-border"></div>
+      <div className="animated-border" />
     </div>
   );
 };

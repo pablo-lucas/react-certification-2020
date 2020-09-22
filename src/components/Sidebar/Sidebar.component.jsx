@@ -22,7 +22,9 @@ const Sidebar = ({ children, visible, setVisible }) => {
             </Link>
             <Menu.Item as="a">Favorites</Menu.Item>
           </SemanticSideBar>
-          <SemanticSideBar.Pusher dimmed={visible}>{children}</SemanticSideBar.Pusher>
+          <SemanticSideBar.Pusher dimmed={visible} style={{ height: '100%' }}>
+            {children}
+          </SemanticSideBar.Pusher>
         </SemanticSideBar.Pushable>
       </Grid.Column>
     </Grid>
