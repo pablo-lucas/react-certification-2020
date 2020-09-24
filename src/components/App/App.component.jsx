@@ -6,6 +6,7 @@ import HomePage from '../../pages/Home';
 import LoginPage from '../../pages/Login';
 import NotFound from '../../pages/NotFound';
 import Favorites from '../../pages/Favorites';
+import FavoritesDetail from '../../pages/FavoritesDetail';
 import VideoPage from '../../pages/Video';
 import Private from '../Private';
 import Layout from '../Layout';
@@ -66,7 +67,13 @@ function App() {
                   <LoginPage />
                 </Route>
                 <Private exact path="/favorites">
-                  <Favorites />
+                  <Favorites setSelectedVideo={setSelectedVideo} />
+                </Private>
+                <Private exact path="/favorites/:id">
+                  <FavoritesDetail
+                    selectedVideo={selectedVideo}
+                    setSelectedVideo={setSelectedVideo}
+                  />
                 </Private>
                 <Route path="/watch/:id">
                   <VideoPage

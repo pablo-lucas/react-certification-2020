@@ -5,8 +5,10 @@ import { useAuth } from '../../providers/Auth';
 const existInFavorites = (videos, id) => videos.some((fav) => fav.id.videoId === id);
 
 const VideoDetail = ({ video }) => {
-  const { authenticated, favorites, addFavorite, removeFavorite } = useAuth();
+  const { authenticated, getFavorites, addFavorite, removeFavorite } = useAuth();
   const [isFavorite, setIsFavorite] = useState(false);
+
+  const favorites = getFavorites();
 
   useEffect(() => {
     if (authenticated && favorites) {

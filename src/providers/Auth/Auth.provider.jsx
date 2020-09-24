@@ -56,9 +56,21 @@ function AuthProvider({ children }) {
     storage.set(FAVORITE_VIDEOS_KEY, favoriteVideosUpdated);
   }, []);
 
+  const getFavorites = useCallback(() => {
+    return storage.get(FAVORITE_VIDEOS_KEY);
+  }, []);
+
   return (
     <AuthContext.Provider
-      value={{ login, logout, authenticated, favorites, addFavorite, removeFavorite }}
+      value={{
+        login,
+        logout,
+        authenticated,
+        favorites,
+        addFavorite,
+        removeFavorite,
+        getFavorites,
+      }}
     >
       {children}
     </AuthContext.Provider>

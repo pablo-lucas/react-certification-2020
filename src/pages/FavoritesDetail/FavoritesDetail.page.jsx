@@ -2,8 +2,11 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import VideoDetail from '../../components/VideoDetail';
 import VideoList from '../../components/VideoList';
+import { useAuth } from '../../providers/Auth';
 
-const Video = ({ selectedVideo, videos, setSelectedVideo }) => {
+const FavoritesDetail = ({ selectedVideo, setSelectedVideo }) => {
+  const { getFavorites } = useAuth();
+
   return (
     <Grid>
       <Grid.Row>
@@ -11,11 +14,11 @@ const Video = ({ selectedVideo, videos, setSelectedVideo }) => {
           <VideoDetail video={selectedVideo} />
         </Grid.Column>
         <Grid.Column width={6}>
-          <VideoList videos={videos} onVideoSelect={setSelectedVideo} />
+          <VideoList videos={getFavorites()} onVideoSelect={setSelectedVideo} />
         </Grid.Column>
       </Grid.Row>
     </Grid>
   );
 };
 
-export default Video;
+export default FavoritesDetail;
