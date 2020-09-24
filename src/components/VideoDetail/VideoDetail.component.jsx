@@ -1,9 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Divider, Embed, Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import { useAuth } from '../../providers/Auth';
 
+const existInFavorites = (videos, id) => videos.some((fav) => fav.id.videoId === id);
+
 const VideoDetail = ({ video }) => {
-  const { authenticated } = useAuth();
+  const { authenticated, favorites, addFavorite, removeFavorite } = useAuth();
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    if (authenticated && favorites) {
+      setIsFavorite(existInFavorites(favorites, video.id.videoId));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (authenticated && favorites) {
+      setIsFavorite(existInFavorites(favorites, video.id.videoId));
+    }
+  }, [video]);
+
+  const onAddFavorite = (videoSelected) => () => {
+    addFavorite(videoSelected);
+    setIsFavorite(!isFavorite);
+  };
+
+  const onRemoveFavorite = (videoSelected) => () => {
+    removeFavorite(videoSelected);
+    setIsFavorite(!isFavorite);
+  };
 
   return (
     <>
@@ -21,7 +46,13 @@ const VideoDetail = ({ video }) => {
             {authenticated && (
               <Grid.Column width={2}>
                 <div>
-                  <Button animated floated="right" size="tiny" color="yellow">
+                  <Button
+                    animated
+                    floated="right"
+                    size="tiny"
+                    color={isFavorite ? 'yellow' : 'grey'}
+                    onClick={isFavorite ? onRemoveFavorite(video) : onAddFavorite(video)}
+                  >
                     <Button.Content visible>Favorite</Button.Content>
                     <Button.Content hidden>
                       <Icon name="favorite" />

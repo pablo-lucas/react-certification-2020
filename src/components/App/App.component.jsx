@@ -5,7 +5,7 @@ import AuthProvider from '../../providers/Auth';
 import HomePage from '../../pages/Home';
 import LoginPage from '../../pages/Login';
 import NotFound from '../../pages/NotFound';
-import SecretPage from '../../pages/Secret';
+import Favorites from '../../pages/Favorites';
 import VideoPage from '../../pages/Video';
 import Private from '../Private';
 import Layout from '../Layout';
@@ -65,8 +65,8 @@ function App() {
                 <Route exact path="/login">
                   <LoginPage />
                 </Route>
-                <Private exact path="/secret">
-                  <SecretPage />
+                <Private exact path="/favorites">
+                  <Favorites />
                 </Private>
                 <Route path="/watch/:id">
                   <VideoPage
