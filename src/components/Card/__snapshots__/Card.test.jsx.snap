@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card component Matches the snapshot 1`] = `
+<div
+  className="ui fluid card"
+  onClick={[Function]}
+  style={
+    Object {
+      "cursor": "pointer",
+    }
+  }
+>
+  <div
+    className="image"
+  >
+    <img
+      src="https://i.ytimg.com/vi/nmXMgqjQzls/mqdefault.jpg"
+    />
+  </div>
+  <div
+    className="content"
+  >
+    <div
+      className="header"
+    >
+      <h4>
+        Video Tour | Welcome to Wizeline Guadalajara
+      </h4>
+    </div>
+    <div
+      className="meta"
+    >
+      <span
+        className="date"
+      >
+        Wizeline
+      </span>
+    </div>
+  </div>
+</div>
+`;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 import Card from '../Card';
 
@@ -10,16 +9,11 @@ const VideoGrid = ({ videos, onVideoSelect, isFromFavorite }) => {
         videos.map((video) => {
           return (
             <Grid.Column key={video.snippet.title} width={4} stretched>
-              <Link
-                to={
-                  isFromFavorite
-                    ? `/favorites/${video.id.videoId}`
-                    : `/watch/${video.id.videoId}`
-                }
-                style={null}
-              >
-                <Card video={video} onVideoSelect={onVideoSelect} />
-              </Link>
+              <Card
+                video={video}
+                onVideoSelect={onVideoSelect}
+                isFromFavorite={isFromFavorite}
+              />
             </Grid.Column>
           );
         })}
