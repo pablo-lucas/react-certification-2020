@@ -7,10 +7,17 @@ const base = {
 const dark = {
   id: 'dark',
   ...base,
-  backgroundColor: '#1c1a21',
-  textColor: 'white',
+  backgroundColor: '#1c1a21 !important',
+  textColor: 'white !important',
   navColor: 'black',
   icon: 'white !important',
+  navBar: {
+    backgroundColor: 'black !important',
+  },
+  card: {
+    backgroundColor: 'black',
+  },
+  meta: '#98a0aa',
 };
 
 const light = {
@@ -19,6 +26,12 @@ const light = {
   backgroundColor: '#fff',
   textColor: 'grey',
   navColor: '#fff',
+  navBar: {
+    backgroundColor: 'white',
+  },
+  card: {
+    backgroundColor: 'white',
+  },
 };
 
 export const theme = { dark, light };

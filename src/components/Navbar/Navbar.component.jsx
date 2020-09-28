@@ -1,21 +1,21 @@
 import './Navbar.styles.css';
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Dropdown, Icon, Menu } from 'semantic-ui-react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Search from '../Search/Search.component';
 import { useAuth } from '../../providers/Auth';
-// import { ThemeContext } from '../App/App.component';
+import { ThemeContext } from '../App/App.component';
 
 const StyledButton = styled(Button)`
   &&& {
     color: ${(props) => props.theme.icon};
   }
-  // &&&:hover {
-  //   background: black !important ;
+  &&&:hover {
+    background: ${(props) => props.theme.navBar.backgroundColor};
 
-  //   color: ${(props) => props.theme.icon};
-  // }
+    color: ${(props) => props.theme.icon};
+  }
 `;
 
 const StyledMenu = styled(Menu)`
@@ -24,10 +24,16 @@ const StyledMenu = styled(Menu)`
   }
 `;
 
+const StyledDropdown = styled(Dropdown)`
+  color: ${(props) => props.theme.icon};
+`;
+
 const Navbar = ({ onFormSubmit, onShowSidebar }) => {
   const { authenticated, logout } = useAuth();
   const history = useHistory();
-  // const { dispatch } = useContext(ThemeContext);
+  const { dispatch } = useContext(ThemeContext);
+
+  const [darkMode, setDarkMode] = useState(false);
 
   const deAuthenticate = (event) => {
     event.preventDefault();
@@ -35,9 +41,10 @@ const Navbar = ({ onFormSubmit, onShowSidebar }) => {
     history.push('/');
   };
 
-  // const toggleTheme = () => {
-  //   dispatch({ type: 'toggleTheme' });
-  // };
+  const toggleTheme = () => {
+    dispatch({ type: 'toggleTheme' });
+    setDarkMode(!darkMode);
+  };
 
   return (
     <div style={{ position: 'relative' }}>
@@ -55,26 +62,26 @@ const Navbar = ({ onFormSubmit, onShowSidebar }) => {
         <StyledMenu.Item name="search">
           <Search onFormSubmit={onFormSubmit} />
         </StyledMenu.Item>
-        {/* <StyledMenu.Item name="theme">
+        <StyledMenu.Item name="theme">
           <Button icon onClick={() => toggleTheme()}>
-            <Icon name="moon" />
+            <Icon name={!darkMode ? 'moon' : 'sun'} />
           </Button>
-        </StyledMenu.Item> */}
+        </StyledMenu.Item>
         <StyledMenu.Menu position="right">
           <StyledMenu.Item name="user">
-            <Dropdown icon="user circle">
-              <Dropdown.Menu>
+            <StyledDropdown icon="user circle">
+              <StyledDropdown.Menu>
                 {authenticated ? (
                   <Link to="/" onClick={deAuthenticate}>
-                    <Dropdown.Item text="Sign out" />
+                    <StyledDropdown.Item text="Sign out" />
                   </Link>
                 ) : (
                   <Link to="/login">
-                    <Dropdown.Item text="Sign in" />
+                    <StyledDropdown.Item text="Sign in" />
                   </Link>
                 )}
-              </Dropdown.Menu>
-            </Dropdown>
+              </StyledDropdown.Menu>
+            </StyledDropdown>
           </StyledMenu.Item>
         </StyledMenu.Menu>
       </StyledMenu>

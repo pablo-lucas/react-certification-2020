@@ -9,7 +9,9 @@ const Favorites = ({ setSelectedVideo }) => {
 
   return (
     <section className="" ref={sectionRef}>
-      <Header as="h1">Favorites</Header>
+      <Header as="h1" style={{ color: 'grey' }}>
+        Favorites
+      </Header>
       <VideoGrid
         videos={getFavorites()}
         onVideoSelect={setSelectedVideo}

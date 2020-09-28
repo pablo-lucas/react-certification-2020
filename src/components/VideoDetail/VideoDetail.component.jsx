@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { Button, Divider, Embed, Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import { useAuth } from '../../providers/Auth';
 
 const existInFavorites = (videos, id) => videos.some((fav) => fav.id.videoId === id);
+
+const StyledSegment = styled(Segment)`
+  &&&{
+    background: ${(props) => props.theme.backgroundColor};
+    .header {
+      color: ${(props) => props.theme.icon}
+    }
+`;
 
 const VideoDetail = ({ video }) => {
   const { authenticated, getFavorites, addFavorite, removeFavorite } = useAuth();
@@ -39,7 +48,7 @@ const VideoDetail = ({ video }) => {
         placeholder={video.snippet.thumbnails.high.url}
         source="youtube"
       />
-      <Segment compact>
+      <StyledSegment compact>
         <Grid>
           <Grid.Row>
             <Grid.Column width={14}>
@@ -67,7 +76,7 @@ const VideoDetail = ({ video }) => {
         </Grid>
         <Divider inverted />
         <p>{video.snippet.description}</p>
-      </Segment>
+      </StyledSegment>
     </>
   );
 };
