@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Card component Matches the snapshot 1`] = `
-<div
-  className="ui fluid card"
+<a
+  className="ui fluid card sc-bdnylx deFIdk"
   onClick={[Function]}
   style={
     Object {
@@ -37,5 +37,5 @@ exports[`Card component Matches the snapshot 1`] = `
       </span>
     </div>
   </div>
-</div>
+</a>
 `;

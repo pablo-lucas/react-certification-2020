@@ -73,11 +73,11 @@ const Navbar = ({ onFormSubmit, onShowSidebar }) => {
               <StyledDropdown.Menu>
                 {authenticated ? (
                   <Link to="/" onClick={deAuthenticate}>
-                    <StyledDropdown.Item text="Sign out" />
+                    <StyledDropdown.Item text="Sign out" data-testid="sign-out-link" />
                   </Link>
                 ) : (
                   <Link to="/login">
-                    <StyledDropdown.Item text="Sign in" />
+                    <StyledDropdown.Item data-testid="sign-in-link" text="Sign in" />
                   </Link>
                 )}
               </StyledDropdown.Menu>

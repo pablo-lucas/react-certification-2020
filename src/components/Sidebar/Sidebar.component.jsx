@@ -22,7 +22,11 @@ const Sidebar = ({ children, visible, setVisible }) => {
           <Menu.Item as="span">Home</Menu.Item>
         </Link>
         {authenticated && (
-          <Link to="/favorites" onClick={() => setVisible(false)}>
+          <Link
+            to="/favorites"
+            onClick={() => setVisible(false)}
+            data-testid="favorites-link"
+          >
             <Menu.Item as="span">Favorites</Menu.Item>
           </Link>
         )}

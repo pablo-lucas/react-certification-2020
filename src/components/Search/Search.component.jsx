@@ -21,7 +21,7 @@ const Search = ({ onFormSubmit }) => {
   };
 
   return (
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={onSubmit} data-testid="submit-form">
       <Form.Field>
         <Input
           type="text"
