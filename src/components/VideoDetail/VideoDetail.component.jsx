@@ -63,6 +63,7 @@ const VideoDetail = ({ video }) => {
                     size="tiny"
                     color={isFavorite ? 'yellow' : 'grey'}
                     onClick={isFavorite ? onRemoveFavorite(video) : onAddFavorite(video)}
+                    data-testid="favorite-btn"
                   >
                     <Button.Content visible>Favorite</Button.Content>
                     <Button.Content hidden>
