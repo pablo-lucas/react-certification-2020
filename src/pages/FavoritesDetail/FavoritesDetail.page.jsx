@@ -2,10 +2,10 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import VideoDetail from '../../components/VideoDetail';
 import VideoList from '../../components/VideoList';
-import { useAuth } from '../../providers/Auth';
+import { useVideoStorageState } from '../../providers/Video';
 
 const FavoritesDetail = ({ selectedVideo, setSelectedVideo }) => {
-  const { getFavorites } = useAuth();
+  const { videos } = useVideoStorageState();
 
   return (
     <Grid>
@@ -14,7 +14,7 @@ const FavoritesDetail = ({ selectedVideo, setSelectedVideo }) => {
           <VideoDetail video={selectedVideo} />
         </Grid.Column>
         <Grid.Column width={6}>
-          <VideoList videos={getFavorites()} onVideoSelect={setSelectedVideo} />
+          <VideoList videos={videos} onVideoSelect={setSelectedVideo} />
         </Grid.Column>
       </Grid.Row>
     </Grid>

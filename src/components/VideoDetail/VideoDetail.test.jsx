@@ -8,6 +8,8 @@ import { initialState, reducer } from '../../providers/Theme/reducer';
 import VideoDetail from './VideoDetail.component';
 import { video } from '../../__mocks__/videoMock';
 import { AuthContext } from '../../providers/Auth/Auth.provider';
+import VideoProvider from '../../providers/Video';
+import { VideoContext } from '../../providers/Video/Video.provider';
 
 const AllTheProviders = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -28,7 +30,9 @@ describe('VideoDetail component', () => {
     const videoDetail = render(
       <AllTheProviders>
         <AuthProvider>
-          <VideoDetail video={video} />
+          <VideoProvider>
+            <VideoDetail video={video} />
+          </VideoProvider>
         </AuthProvider>
       </AllTheProviders>
     );
@@ -44,7 +48,9 @@ describe('VideoDetail component', () => {
     const videoDetail = render(
       <AllTheProviders>
         <AuthProvider>
-          <VideoDetail video={video} />
+          <VideoProvider>
+            <VideoDetail video={video} />
+          </VideoProvider>
         </AuthProvider>
       </AllTheProviders>
     );
@@ -57,7 +63,9 @@ describe('VideoDetail component', () => {
       <AllTheProviders>
         <AuthProvider>
           <AuthContext.Provider value={{ authenticated: true, getFavorites: () => {} }}>
-            <VideoDetail video={video} />
+            <VideoContext.Provider value={{ videos: [video] }}>
+              <VideoDetail video={video} />
+            </VideoContext.Provider>
           </AuthContext.Provider>
         </AuthProvider>
       </AllTheProviders>
@@ -69,18 +77,15 @@ describe('VideoDetail component', () => {
   it('should render favorite button with yellow background if video is in favorites', () => {
     const videoDetail = render(
       <AllTheProviders>
-        <AuthProvider>
-          <AuthContext.Provider
-            value={{
-              authenticated: true,
-              getFavorites: () => {
-                return [video];
-              },
-            }}
-          >
+        <AuthContext.Provider
+          value={{
+            authenticated: true,
+          }}
+        >
+          <VideoContext.Provider value={{ videos: [video] }}>
             <VideoDetail video={video} />
-          </AuthContext.Provider>
-        </AuthProvider>
+          </VideoContext.Provider>
+        </AuthContext.Provider>
       </AllTheProviders>
     );
 
