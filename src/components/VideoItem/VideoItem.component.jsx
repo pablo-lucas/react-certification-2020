@@ -2,6 +2,7 @@ import './VideoItem.styles.css';
 import React from 'react';
 import styled from 'styled-components';
 import { Image, List } from 'semantic-ui-react';
+import { useHistory, useLocation } from 'react-router';
 
 const StyledListContet = styled(List.Content)`
   &&& {
@@ -14,8 +15,24 @@ const StyledListContet = styled(List.Content)`
   }
 `;
 const VideoItem = ({ video, onVideoSelect }) => {
+  const history = useHistory();
+  const location = useLocation();
+
+  const onRedirectVideo = () => {
+    const isFavorite = location.pathname.includes('favorites');
+    history.push(
+      `${isFavorite ? `/favorites/${video.id}` : `/watch/${video.id.videoId}`}`
+    );
+  };
+
   return (
-    <List.Item className="video-item" onClick={() => onVideoSelect(video)}>
+    <List.Item
+      className="video-item"
+      onClick={() => {
+        onVideoSelect(video);
+        onRedirectVideo();
+      }}
+    >
       <Image
         className="ui image"
         src={video.snippet.thumbnails.medium.url}

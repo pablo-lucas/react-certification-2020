@@ -14,7 +14,7 @@ function useVideoStorageState() {
 }
 
 function VideoProvider({ children }) {
-  const [videos, setVideos] = useState([]);
+  const [videos, setVideos] = useState(() => storage.get(FAVORITE_VIDEOS_KEY) || []);
 
   useEffect(() => {
     storage.set(FAVORITE_VIDEOS_KEY, videos);

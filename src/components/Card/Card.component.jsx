@@ -23,7 +23,7 @@ const Card = ({ video, onVideoSelect, isFromFavorite }) => {
 
   const onLinkTo = () => {
     const linkTo = isFromFavorite
-      ? `/favorites/${video.id.videoId}`
+      ? `/favorites/${video.id}`
       : `/watch/${video.id.videoId}`;
 
     history.push(linkTo);

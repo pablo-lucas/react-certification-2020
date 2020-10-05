@@ -1,10 +1,12 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useParams } from 'react-router';
 import styled from 'styled-components';
 import { Button, Divider, Embed, Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import { useAuth } from '../../providers/Auth';
 import { useVideoStorageState } from '../../providers/Video';
+import youtube from '../../apis/youtube';
 
-const existInFavorites = (videos, id) => videos.some((fav) => fav.id.videoId === id);
+const existInFavorites = (videos, id) => videos.some((fav) => fav.id === id);
 
 const StyledSegment = styled(Segment)`
   &&&{
@@ -14,13 +16,27 @@ const StyledSegment = styled(Segment)`
     }
 `;
 
-const VideoDetail = ({ video }) => {
+const VideoDetail = () => {
+  const { id } = useParams();
   const { authenticated } = useAuth();
   const { videos, addVideo, removeVideo } = useVideoStorageState();
-  const isFavorite = useMemo(() => existInFavorites(videos, video.id.videoId), [
-    videos,
-    video.id.videoId,
-  ]);
+  const isFavorite = useMemo(() => existInFavorites(videos, id), [videos, id]);
+  const [video, setVideo] = useState({});
+
+  useEffect(() => {
+    const getVideo = async (videoId) => {
+      if (videoId) {
+        const response = await youtube.get('/videos', {
+          params: {
+            id: videoId,
+          },
+        });
+
+        setVideo(response.data.items[0]);
+      }
+    };
+    setVideo(getVideo(id));
+  }, [id]);
 
   const onAddFavorite = (videoSelected) => () => {
     addVideo(videoSelected);
@@ -35,7 +51,7 @@ const VideoDetail = ({ video }) => {
       {video.id && (
         <>
           <Embed
-            id={video.id.videoId}
+            id={video.id}
             placeholder={video.snippet.thumbnails.high.url}
             source="youtube"
           />
